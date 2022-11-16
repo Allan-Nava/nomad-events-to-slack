@@ -51,13 +51,13 @@ def get_alloc_events(c_nomad, sent_events_list, node_name_list, job_id_list, eve
                 (len(node_name_list) == 0 and allocation["JobID"] in job_id_list) or \
                 (len(node_name_list) == 0 and len(job_id_list) == 0):
             for task, state in allocation["TaskStates"].items():
-                logger.debug("task ", task, "state ", state)
+                logger.debug("task: {} state: {}".format(task, state))
                 for event in state["Events"]:
                     if (event["Type"] in event_types_list and event["Message"] in event_message_filters) or \
                             (event["Type"] in event_types_list and len(event_message_filters) == 0) or \
                             (len(event_types_list) and event["Message"] in event_message_filters) or \
                             (len(event_types_list) == 0 and len(event_message_filters) == 0):
-                        logger.debug("event Message ", event["Message"])
+                        logger.debug("event Message {}".format(event["Message"]))
                         #
                         alloc_event = {
                             "AllocationID": allocation["ID"],
