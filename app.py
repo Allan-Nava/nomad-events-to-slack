@@ -43,7 +43,7 @@ def consul_get(c_consul, key):
 def get_alloc_events(c_nomad, sent_events_list, node_name_list, job_id_list, event_types_list, event_message_filters):
     alloc_events = []
     allocations = c_nomad.allocations.get_allocations()
-    logger.info("Get {} allocations".format(len(allocations)))
+    logger.info("Get {} allocations \n".format(len(allocations)))
     for allocation in allocations:
         logger.debug("Raw allocation: {}".format(allocation))
         if (allocation["NodeName"] in node_name_list and allocation["JobID"] in job_id_list) or \
@@ -51,13 +51,13 @@ def get_alloc_events(c_nomad, sent_events_list, node_name_list, job_id_list, eve
                 (len(node_name_list) == 0 and allocation["JobID"] in job_id_list) or \
                 (len(node_name_list) == 0 and len(job_id_list) == 0):
             for task, state in allocation["TaskStates"].items():
-                logger.debug("task: {} state: {}".format(task, state))
+                logger.debug("task: {} state: {} \n".format(task, state))
                 for event in state["Events"]:
                     if (event["Type"] in event_types_list and event["Message"] in event_message_filters) or \
                             (event["Type"] in event_types_list and len(event_message_filters) == 0) or \
                             (len(event_types_list) and event["Message"] in event_message_filters) or \
                             (len(event_types_list) == 0 and len(event_message_filters) == 0):
-                        logger.debug("event Message {}".format(event["Message"]))
+                        logger.debug("event Message {}\n".format(event["Message"]))
                         #
                         alloc_event = {
                             "AllocationID": allocation["ID"],
@@ -73,10 +73,10 @@ def get_alloc_events(c_nomad, sent_events_list, node_name_list, job_id_list, eve
                             "EventDisplayMessage": event["DisplayMessage"],
                             "EventDetails": event["Details"]
                         }
-                        logger.debug("Filtered alloc event: {}".format(alloc_event))
+                        logger.debug("Filtered alloc event: {}\n".format(alloc_event))
                         alloc_events.append(alloc_event)
     current_alloc_events = [evt for evt in alloc_events if evt not in sent_events_list]
-    logger.debug("Current alloc_events: {}".format(current_alloc_events))
+    logger.debug("Current alloc_events: {}\n".format(current_alloc_events))
     return current_alloc_events
 #
 #
@@ -111,7 +111,7 @@ def format_event_to_slack_message(event):
                 {
                     "title": "Event Details",
                     "value": event_details,
-                    "short": True
+                    "short": False
                 }
             ]
         }]
@@ -159,7 +159,7 @@ def main():
     clear_input_list(event_message_filters)
     my_nomad = nomad.Nomad()
     my_consul = consul.Consul()
-    logger.info("ENV is ok. Start Loop.")
+    logger.info("ENV is ok. Start Loop. \n")
     while True:
         if use_consul == "true":
             try:
