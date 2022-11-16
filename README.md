@@ -1,4 +1,5 @@
 # Nomad events to Slack
+[![docker-publish](https://github.com/Allan-Nava/nomad-events-to-slack/actions/workflows/docker-publish.yml/badge.svg)](https://github.com/Allan-Nava/nomad-events-to-slack/actions/workflows/docker-publish.yml)
 
 Get nomad's allocations. Retrieve events from the tasks inside allocations. Post events to Slack channel as a Slack bot using incoming web hooks.
 
