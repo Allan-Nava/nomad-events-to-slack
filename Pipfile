@@ -6,7 +6,7 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-python-nomad = "==1.2.1"
+python-nomad = "==2.0.0"
 python-consul2 = "==0.1.5"
 idna = "==2.10"
 chardet = "==3.0.4"
