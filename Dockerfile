@@ -1,4 +1,4 @@
-FROM python:3.11.3-alpine
+FROM python:3.14.7-alpine
 #
 ENV PIP_NO_CACHE_DIR=on \
     # https://github.com/pypa/pip/blob/master/src/pip/_internal/cli/cmdoptions.py
